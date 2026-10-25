@@ -1,8 +1,6 @@
 name: mfapi Daily NAV
 
 on:
-  schedule:
-    - cron: "00 16 * * *"    # Daily 9:30 PM IST
   workflow_dispatch:
     inputs:
       resume:
