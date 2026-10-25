@@ -1,8 +1,6 @@
 name: Trendlyne SWOT (weekly)
 
 on:
-  schedule:
-    - cron: "30 23 * * 6"    # Saturday 5:00 AM IST (after QVT run finishes)
   workflow_dispatch:
     inputs:
       resume:
