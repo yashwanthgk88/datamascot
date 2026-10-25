@@ -1,8 +1,6 @@
 name: Dhan EOD Prices
 
 on:
-  schedule:
-    - cron: "30 13 * * 1-5"   # Mon–Fri 7:00 PM IST (market closes 3:30 PM)
   workflow_dispatch:
     inputs:
       resume:
