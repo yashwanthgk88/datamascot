@@ -3,6 +3,14 @@ name: Bootstrap (one-time identity seed)
 on:
   workflow_dispatch:
     inputs:
+      skip_funds:
+        description: "Skip the fund catalog when it is already populated"
+        type: boolean
+        default: false
+      skip_stocks:
+        description: "Import funds only"
+        type: boolean
+        default: false
       limit:
         description: "Max stocks to process (blank = all; use small number for smoke test)"
         type: string
@@ -24,10 +32,18 @@ jobs:
       - run: uv sync --frozen
       - name: Run bootstrap
         run: |
-          ARGS=""
-          [ -n "${{ inputs.limit }}" ] && ARGS="--limit ${{ inputs.limit }}"
-          uv run python scripts/bootstrap_identity.py $ARGS
+          ARGS=()
+          if [[ -n "$BOOTSTRAP_LIMIT" ]]; then
+            [[ "$BOOTSTRAP_LIMIT" =~ ^[1-9][0-9]*$ ]] || { echo "Limit must be a positive integer"; exit 1; }
+            ARGS+=(--limit "$BOOTSTRAP_LIMIT")
+          fi
+          [[ "$SKIP_FUNDS" == "true" ]] && ARGS+=(--skip-funds)
+          [[ "$SKIP_STOCKS" == "true" ]] && ARGS+=(--skip-stocks)
+          uv run python scripts/bootstrap_identity.py "${ARGS[@]}"
         env:
+          BOOTSTRAP_LIMIT: ${{ inputs.limit }}
+          SKIP_FUNDS: ${{ inputs.skip_funds }}
+          SKIP_STOCKS: ${{ inputs.skip_stocks }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
