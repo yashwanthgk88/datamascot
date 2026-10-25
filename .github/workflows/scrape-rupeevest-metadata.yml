@@ -1,8 +1,6 @@
 name: Rupeevest MF Metadata (weekly)
 
 on:
-  schedule:
-    - cron: "30 17 * * 0"    # Sunday 11:00 PM IST
   workflow_dispatch:
     inputs:
       resume:
