@@ -1,0 +1,21 @@
+name: Compass official AMFI daily NAV
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: compass-amfi-nav
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Refresh official end-of-day NAVs
+        run: python3 scripts/run_compass_amfi.py
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
