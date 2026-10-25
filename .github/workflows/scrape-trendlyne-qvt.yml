@@ -1,8 +1,6 @@
 name: Trendlyne QVT (weekly)
 
 on:
-  schedule:
-    - cron: "30 20 * * 6"    # Saturday 2:00 AM IST
   workflow_dispatch:
     inputs:
       resume:
