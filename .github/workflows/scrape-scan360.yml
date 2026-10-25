@@ -1,8 +1,6 @@
 name: Scan360 Sectors (weekly)
 
 on:
-  schedule:
-    - cron: "30 18 * * 5"    # Saturday 12:00 AM IST
   workflow_dispatch:
     inputs:
       only_symbol:
