@@ -1,5 +1,7 @@
 name: Compass official AMFI daily NAV
 on:
+  schedule:
+    - cron: "0 16 * * *" # 21:30 Asia/Kolkata
   workflow_dispatch:
 permissions:
   contents: read
