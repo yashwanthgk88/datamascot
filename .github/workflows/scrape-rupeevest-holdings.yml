@@ -1,8 +1,6 @@
 name: Rupeevest MF Holdings (monthly)
 
 on:
-  schedule:
-    - cron: "30 17 1 * *"    # 1st of every month, 11:00 PM IST
   workflow_dispatch:
     inputs:
       resume:
